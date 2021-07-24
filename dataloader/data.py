@@ -32,26 +32,26 @@ def augment_data(images, masks, save_path, augment=True):
     IMG_WIDTH = 512
 
     for idx, (x, y) in tqdm(enumerate(zip(images, masks)), total=len(images)):
-        """Extracting the dir name and image name"""
-        dir_name = x.split("/")[-3]
-        name = dir_name + "_" + x.split("/")[-1].split(".")[0]
+        """Extracting the directory and image name"""
+        directory_name = x.split("/")[-3]
+        name = directory_name + "_" + x.split("/")[-1].split(".")[0]
 
         """ Read the image and mask """
         x = cv2.imread(x, cv2.IMREAD_COLOR)
         y = cv2.imread(y, cv2.IMREAD_COLOR)
 
         if augment == True:
-            aug = HorizontalFlip(p=1.0)
+            aug = HorizontalFlip(p=1.0) #Applying Horizontal Flip 100%
             augmented = aug(image=x, mask=y)
             x1 = augmented["image"]
             y1 = augmented["mask"]
 
-            aug = VerticalFlip(p=1)
+            aug = VerticalFlip(p=1) #Applying Vertical Flip 100%
             augmented = aug(image=x, mask=y)
             x2 = augmented["image"]
             y2 = augmented["mask"]
 
-            aug = Rotate(limit=45, p=1.0)
+            aug = Rotate(limit=45, p=1.0) #Applying Rotation till 45 degress
             augmented = aug(image=x, mask=y)
             x3 = augmented["image"]
             y3 = augmented["mask"]

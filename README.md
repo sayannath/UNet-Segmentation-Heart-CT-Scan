@@ -22,7 +22,20 @@
 
 ### Project Structure
 ```
-To be done
+.
+├── README.md
+├── dataloader
+│   └── data.py
+├── eval.py
+├── logs
+├── metrics.py
+├── models
+│   └── unet.py
+├── predict.py
+├── requirements.txt
+├── results
+├── saved_models
+└── train.py
 ```
 
 Thank You!
