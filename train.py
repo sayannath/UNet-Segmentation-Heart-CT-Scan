@@ -101,8 +101,8 @@ if __name__ == "__main__":
     print(f"Train: {len(train_x)} - {len(train_y)}")
     print(f"Valid: {len(valid_x)} - {len(valid_y)}")
 
-    train_dataset = load_dataset(train_x, train_y, batch=batch_size)
-    valid_dataset = load_dataset(valid_x, valid_y, batch=batch_size)
+    train_dataset = load_dataset(train_x, train_y, batch_size=batch_size)
+    valid_dataset = load_dataset(valid_x, valid_y, batch_size=batch_size)
 
     """ Model """
     model = get_unet_model((IMG_HEIGHT, IMG_WIDTH, 3))
@@ -127,5 +127,5 @@ if __name__ == "__main__":
         epochs=num_epochs,
         validation_data=valid_dataset,
         callbacks=train_callbacks,
-        shuffle=True
+        shuffle=False
     )
