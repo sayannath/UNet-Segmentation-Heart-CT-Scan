@@ -8,17 +8,26 @@ import pydicom as dicom
 
 import tensorflow as tf
 from tensorflow.keras.utils import CustomObjectScope
-from sklearn.metrics import accuracy_score, f1_score, jaccard_score, precision_score, recall_score
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    jaccard_score,
+    precision_score,
+    recall_score,
+)
 from metrics import dice_loss, dice_coef, iou
 
 """ Creating a directory """
+
+
 def create_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
+
 if __name__ == "__main__":
-    """ Seeding """
-    SEEDS=42
+    """Seeding"""
+    SEEDS = 42
     np.random.seed(SEEDS)
     tf.random.set_seed(SEEDS)
 
@@ -26,7 +35,9 @@ if __name__ == "__main__":
     create_dir("test")
 
     """ Loading model """
-    with CustomObjectScope({'iou': iou, 'dice_coef': dice_coef, 'dice_loss': dice_loss}):
+    with CustomObjectScope(
+        {"iou": iou, "dice_coef": dice_coef, "dice_loss": dice_loss}
+    ):
         model = tf.keras.models.load_model("files/model.h5")
 
     """ Load the dataset """
@@ -35,15 +46,15 @@ if __name__ == "__main__":
 
     """ Loop over the data """
     for x in tqdm(test_x):
-        """ Extract the Names """
+        """Extract the Names"""
         dir_name = x.split("/")[-3]
         name = dir_name + "_" + x.split("/")[-1].split(".")[0]
 
         """ Read the Image """
         image = dicom.dcmread(x).pixel_array
         image = np.expand_dims(image, axis=-1)
-        image = image/np.max(image) * 255.0
-        x = image/255.0
+        image = image / np.max(image) * 255.0
+        x = image / 255.0
         x = np.concatenate([x, x, x], axis=-1)
         x = np.expand_dims(x, axis=0)
 

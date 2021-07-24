@@ -15,35 +15,41 @@ IMG_HEIGHT = 512
 IMG_WIDTH = 512
 AUTO = tf.data.AUTOTUNE
 
+
 def create_dir(path):
-    """ Create a directory. """
+    """Create a directory."""
     if not os.path.exists(path):
         os.makedirs(path)
+
 
 def shuffling(x, y):
     x, y = shuffle(x, y, random_state=42)
     return x, y
+
 
 def load_data(path):
     x = sorted(glob(os.path.join(path, "image", "*.jpg")))
     y = sorted(glob(os.path.join(path, "mask", "*.jpg")))
     return x, y
 
+
 def preprocess_image(path):
     path = path.decode()
     x = cv2.imread(path, cv2.IMREAD_COLOR)
-    x = x/255.0
+    x = x / 255.0
     x = x.astype(np.float32)
     return x
+
 
 def preprocess_mask(path):
     path = path.decode()
     x = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-    x = x/255.0
+    x = x / 255.0
     x = x > 0.5
     x = x.astype(np.float32)
     x = np.expand_dims(x, axis=-1)
     return x
+
 
 def preprocess_data(x, y):
     def _parse(x, y):
@@ -56,11 +62,11 @@ def preprocess_data(x, y):
     y.set_shape([IMG_HEIGHT, IMG_WIDTH, 1])
     return x, y
 
+
 def load_dataset(x, y, batch_size=8):
     dataset = tf.data.Dataset.from_tensor_slices((x, y))
     dataset = (
-        dataset
-        .map(preprocess_data, num_parallel_calls=AUTO)
+        dataset.map(preprocess_data, num_parallel_calls=AUTO)
         .batch(batch_size)
         .prefetch(AUTO)
     )
@@ -68,8 +74,8 @@ def load_dataset(x, y, batch_size=8):
 
 
 if __name__ == "__main__":
-    """ Seeding """
-    SEEDS=42
+    """Seeding"""
+    SEEDS = 42
     np.random.seed(SEEDS)
     tf.random.set_seed(SEEDS)
 
@@ -106,10 +112,14 @@ if __name__ == "__main__":
     """Setting up Training Callbacks"""
     train_callbacks = [
         tf.keras.callbacks.ModelCheckpoint(model_path, verbose=1, save_best_only=True),
-        tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, min_lr=1e-7, verbose=1),
+        tf.keras.callbacks.ReduceLROnPlateau(
+            monitor="val_loss", factor=0.1, patience=10, min_lr=1e-7, verbose=1
+        ),
         tf.keras.callbacks.CSVLogger(csv_path),
         tf.keras.callbacks.TensorBoard(),
-        tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=50, restore_best_weights=False),
+        tf.keras.callbacks.EarlyStopping(
+            monitor="val_loss", patience=50, restore_best_weights=False
+        ),
     ]
 
     model.fit(
