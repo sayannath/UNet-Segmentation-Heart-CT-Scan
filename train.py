@@ -118,7 +118,7 @@ if __name__ == "__main__":
         tf.keras.callbacks.CSVLogger(csv_path),
         tf.keras.callbacks.TensorBoard(),
         tf.keras.callbacks.EarlyStopping(
-            monitor="val_loss", patience=50, restore_best_weights=False
+            monitor="val_loss", patience=10, restore_best_weights=False
         ),
     ]
 
@@ -127,4 +127,5 @@ if __name__ == "__main__":
         epochs=num_epochs,
         validation_data=valid_dataset,
         callbacks=train_callbacks,
+        shuffle=True
     )

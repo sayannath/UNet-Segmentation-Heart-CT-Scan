@@ -21,8 +21,6 @@ IMG_HEIGHT = 512
 IMG_WIDTH = 512
 
 """ Creating a directory """
-
-
 def create_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
