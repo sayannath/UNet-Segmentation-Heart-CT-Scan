@@ -1,6 +1,6 @@
 # UNET Segmentation on CT Scan Images
 
-Dataset - [Link](https://www.kaggle.com/datasets/nikhilroxtomar/ct-heart-segmentation)
+Dataset - [Kaggle Link](https://www.kaggle.com/datasets/nikhilroxtomar/ct-heart-segmentation)
 
 ### How to Train the Model
 
