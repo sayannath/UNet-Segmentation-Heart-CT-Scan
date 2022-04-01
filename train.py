@@ -11,6 +11,8 @@ from tensorflow.keras.metrics import Recall, Precision
 from models.unet import get_unet_model
 from metrics import dice_loss, dice_coef, iou
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+
 IMG_HEIGHT = 512
 IMG_WIDTH = 512
 AUTO = tf.data.AUTOTUNE
