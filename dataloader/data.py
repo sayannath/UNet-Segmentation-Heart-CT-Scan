@@ -94,7 +94,6 @@ if __name__ == "__main__":
     print("Train: ", len(train_x))
     print("Valid: ", len(valid_x))
 
-
     """ Create the directories """
     create_dir("new_data/train/image/")
     create_dir("new_data/train/mask/")
