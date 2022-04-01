@@ -13,6 +13,9 @@
    
 3. source env/bin/activate  (In Mac or Linux)
    .\env\Scripts\activate (In Windows) 
+
+4. pip3 install --upgrade pip (In Mac or Linux)
+   pip install --upgrade pip (In Windows)
    
 4. pip3 install -r requirements.txt (In Mac or Linux)
    pip install -r requirements.txt (In Windows)
