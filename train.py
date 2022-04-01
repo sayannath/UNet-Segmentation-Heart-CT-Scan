@@ -11,7 +11,7 @@ from tensorflow.keras.metrics import Recall, Precision
 from models.unet import get_unet_model
 from metrics import dice_loss, dice_coef, iou
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 
 IMG_HEIGHT = 512
 IMG_WIDTH = 512
@@ -85,9 +85,9 @@ if __name__ == "__main__":
     create_dir("files")
 
     """ Hyperparameters """
-    batch_size = 2
+    batch_size = 16
     lr = 1e-4
-    num_epochs = 5
+    num_epochs = 200
     model_path = os.path.join("files", "model.h5")
     csv_path = os.path.join("files", "data.csv")
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
         ),
     ]
 
-    model.fit(
+    history = model.fit(
         train_dataset,
         epochs=num_epochs,
         validation_data=valid_dataset,
