@@ -80,6 +80,10 @@ if __name__ == "__main__":
     SEEDS = 42
     np.random.seed(SEEDS)
     tf.random.set_seed(SEEDS)
+    
+    # Create a MirroredStrategy.
+    strategy = tf.distribute.MirroredStrategy()
+    print("Number of devices: {}".format(strategy.num_replicas_in_sync))
 
     """ Directory for storing files """
     create_dir("files")
@@ -107,9 +111,11 @@ if __name__ == "__main__":
     valid_dataset = load_dataset(valid_x, valid_y, batch_size=batch_size)
 
     """ Model """
-    model = get_unet_model((IMG_HEIGHT, IMG_WIDTH, 3))
-    metrics = [dice_coef, iou, Recall(), Precision()]
-    model.compile(loss=dice_loss, optimizer=Adam(lr), metrics=metrics)
+     # Open a strategy scope.
+    with strategy.scope():
+        model = get_unet_model((IMG_HEIGHT, IMG_WIDTH, 3))
+        metrics = [dice_coef, iou, Recall(), Precision()]
+        model.compile(loss=dice_loss, optimizer=Adam(lr), metrics=metrics)
 
     """Setting up Training Callbacks"""
     train_callbacks = [
