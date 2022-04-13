@@ -3,3 +3,4 @@ env/
 new_data/
 test/
 files/model.h5
+.pytest_cache/
