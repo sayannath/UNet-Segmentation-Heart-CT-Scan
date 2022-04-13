@@ -9,15 +9,15 @@ from train import load_data, load_dataset, shuffling
 
 
 class TestClassifier(unittest.TestCase):
-    """
-    Check the input layer of the model.
-    Args:
-        None
-    Returns:
-        None
-    """
 
     def test_model(self):
+        """
+        Check the input layer anf the output layer of the model.
+        Args:
+            None
+        Returns:
+            None
+        """
         model = get_unet_model((512, 512, 3))
         # Check the image height
         self.assertEqual(
@@ -29,6 +29,13 @@ class TestClassifier(unittest.TestCase):
         )
 
     def test_dataloader(self):
+        """
+        Check the number of images and mask of the training anf validation pipeline.
+        Args:
+            None
+        Returns:
+            None
+        """
         dataset_path = os.path.join("new_data")
         train_path = os.path.join(dataset_path, "train")
         valid_path = os.path.join(dataset_path, "valid")

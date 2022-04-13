@@ -1,6 +1,5 @@
 import os
 import cv2
-import numpy as np
 from glob import glob
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
@@ -8,13 +7,17 @@ from albumentations import HorizontalFlip, VerticalFlip, Rotate
 
 
 def create_dir(path):
-    """Create a directory."""
+    """
+    Create a directory.
+    """
     if not os.path.exists(path):
         os.makedirs(path)
 
 
 def load_data(path, split=0.2):
-    """Load the images and masks"""
+    """
+    Load the images and masks
+    """
     images = sorted(glob(f"{path}/*/image/*.png"))
     masks = sorted(glob(f"{path}/*/mask/*.png"))
 
@@ -27,7 +30,9 @@ def load_data(path, split=0.2):
 
 
 def augment_data(images, masks, save_path, augment=True):
-    """Performing data augmentation."""
+    """
+    Performing data augmentation.
+    """
     IMG_HEIGHT = 512
     IMG_WIDTH = 512
 
@@ -87,8 +92,9 @@ def augment_data(images, masks, save_path, augment=True):
 
 
 if __name__ == "__main__":
-
-    """Load the dataset"""
+    """
+    Load the dataset
+    """
     dataset_path = os.path.join("data", "train")
     (train_x, train_y), (valid_x, valid_y) = load_data(dataset_path, split=0.2)
     print("Train: ", len(train_x))
