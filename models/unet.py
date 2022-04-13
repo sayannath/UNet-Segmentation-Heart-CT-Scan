@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.models import Model
 
-def conv_block(input, num_filters):
+def conv_block(input, num_filters: int):
     x = layers.Conv2D(num_filters, 3, padding="same")(input)
     x = layers.BatchNormalization()(x)
     x = layers.Activation("relu")(x)
@@ -15,13 +15,13 @@ def conv_block(input, num_filters):
     return x
 
 
-def encoder_block(input, num_filters):
+def encoder_block(input, num_filters: int):
     x = conv_block(input, num_filters)
     p = layers.MaxPool2D((2, 2))(x)
     return x, p
 
 
-def decoder_block(input, skip_features, num_filters):
+def decoder_block(input, skip_features, num_filters: int):
     x = layers.Conv2DTranspose(num_filters, (2, 2), strides=2, padding="same")(input)
     x = layers.Concatenate()([x, skip_features])
     x = conv_block(x, num_filters)
