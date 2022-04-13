@@ -1,9 +1,6 @@
 import os
 import unittest
 
-import tensorflow as tf
-from numpy import int64
-
 from models.unet import get_unet_model
 from train import load_data, load_dataset, shuffling
 
