@@ -1,0 +1,29 @@
+name: Run tests
+
+on: [push, pull_request]
+
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Ensure files are formatted with black
+        run: |
+          pip install --upgrade pip
+          pip install black==19.10b0
+          black --check tests.py
+          black --check train.py
+
+  # run-test:
+  #   needs: [black]
+  #   runs-on: ubuntu-latest
+  #   container: tensorflow/tensorflow
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - run: |
+  #         pip install --upgrade pip
+  #         pip install -r requirements.txt
+  #         sh scripts/test.sh
