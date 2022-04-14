@@ -52,4 +52,4 @@ def get_unet_model(input_shape):
 if __name__ == "__main__":
     input_shape = (512, 512, 3)
     model = get_unet_model(input_shape)
-    model.summary()
+    model.summary()  # Model Summary
