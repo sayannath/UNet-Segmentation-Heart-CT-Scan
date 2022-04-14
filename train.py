@@ -11,7 +11,7 @@ from tensorflow.keras.metrics import Recall, Precision
 from models.unet import get_unet_model
 from metrics import dice_loss, dice_coef, iou
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 IMG_HEIGHT = 512
 IMG_WIDTH = 512
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     SEEDS = 42
     np.random.seed(SEEDS)
     tf.random.set_seed(SEEDS)
-    
+
     # Create a MirroredStrategy.
     strategy = tf.distribute.MirroredStrategy()
     print("Number of devices: {}".format(strategy.num_replicas_in_sync))
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     valid_dataset = load_dataset(valid_x, valid_y, batch_size=batch_size)
 
     """ Model """
-     # Open a strategy scope.
+    # Open a strategy scope.
     with strategy.scope():
         model = get_unet_model((IMG_HEIGHT, IMG_WIDTH, 3))
         metrics = [dice_coef, iou, Recall(), Precision()]
@@ -135,5 +135,5 @@ if __name__ == "__main__":
         epochs=num_epochs,
         validation_data=valid_dataset,
         callbacks=train_callbacks,
-        shuffle=False
+        shuffle=False,
     )

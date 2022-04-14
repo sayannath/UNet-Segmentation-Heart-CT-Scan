@@ -6,10 +6,9 @@ from train import load_data, load_dataset, shuffling
 
 
 class TestClassifier(unittest.TestCase):
-
     def test_model(self):
         """
-        Check the input layer anf the output layer of the model.
+        Check the input layer and the output layer of the model.
         Args:
             None
         Returns:
@@ -18,16 +17,18 @@ class TestClassifier(unittest.TestCase):
         model = get_unet_model((512, 512, 3))
         # Check the image height
         self.assertEqual(
-            model.get_layer("input_1").input_shape[0][0], tuple(model.get_layer("conv2d_18").output.shape)[0]
+            model.get_layer("input_1").input_shape[0][0],
+            tuple(model.get_layer("conv2d_18").output.shape)[0],
         )
         # Check the image width
         self.assertEqual(
-            model.get_layer("input_1").input_shape[0][1], tuple(model.get_layer("conv2d_18").output.shape)[1]
+            model.get_layer("input_1").input_shape[0][1],
+            tuple(model.get_layer("conv2d_18").output.shape)[1],
         )
 
     def test_dataloader(self):
         """
-        Check the number of images and mask of the training anf validation pipeline.
+        Check the number of images and masks of the training and validation pipeline.
         Args:
             None
         Returns:
@@ -47,12 +48,8 @@ class TestClassifier(unittest.TestCase):
         train_image, train_mask = next(iter(train_dataset))
         valid_image, valid_mask = next(iter(valid_dataset))
 
-        self.assertEqual(
-            len(train_image), len(train_mask)
-        )
-        self.assertEqual(
-            len(valid_image), len(valid_mask)
-        )
+        self.assertEqual(len(train_image), len(train_mask))
+        self.assertEqual(len(valid_image), len(valid_mask))
 
 
 if __name__ == "__main__":

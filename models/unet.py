@@ -1,7 +1,7 @@
-
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.models import Model
+
 
 def conv_block(input, num_filters: int):
     x = layers.Conv2D(num_filters, 3, padding="same")(input)
@@ -26,6 +26,7 @@ def decoder_block(input, skip_features, num_filters: int):
     x = layers.Concatenate()([x, skip_features])
     x = conv_block(x, num_filters)
     return x
+
 
 def get_unet_model(input_shape):
     inputs = layers.Input(input_shape)

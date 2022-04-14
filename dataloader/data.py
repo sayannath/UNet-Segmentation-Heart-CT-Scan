@@ -46,17 +46,17 @@ def augment_data(images, masks, save_path, augment=True):
         y = cv2.imread(y, cv2.IMREAD_COLOR)
 
         if augment == True:
-            aug = HorizontalFlip(p=1.0) #Applying Horizontal Flip 100%
+            aug = HorizontalFlip(p=1.0)  # Applying Horizontal Flip 100%
             augmented = aug(image=x, mask=y)
             x1 = augmented["image"]
             y1 = augmented["mask"]
 
-            aug = VerticalFlip(p=1) #Applying Vertical Flip 100%
+            aug = VerticalFlip(p=1)  # Applying Vertical Flip 100%
             augmented = aug(image=x, mask=y)
             x2 = augmented["image"]
             y2 = augmented["mask"]
 
-            aug = Rotate(limit=45, p=1.0) #Applying Rotation till 45 degress
+            aug = Rotate(limit=45, p=1.0)  # Applying Rotation till 45 degress
             augmented = aug(image=x, mask=y)
             x3 = augmented["image"]
             y3 = augmented["mask"]
