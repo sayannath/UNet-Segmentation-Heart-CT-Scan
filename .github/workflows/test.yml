@@ -24,6 +24,9 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           apt install -y tar
+          libavcodec-dev libavformat-dev libswscale-dev
+          ibgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+          apt install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev libwebp-dev`
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install gdown==4.3.1
