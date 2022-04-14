@@ -23,6 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          apt install -y tar
           pip install --upgrade pip
           pip install -r requirements.txt
+          pip install gdown==4.3.1
+          gdown --id 1-5OxB8eQTkiE7HStTkk4sOsdixKKQxsq
+          tar -xvf "heart_test_data.tar" "heart_test_data"
+          rm -rf heart_test_data.tar
           sh scripts/test.sh
